@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-      <router-view/>
+    <router-view />
   </div>
 </template>
 <script>
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     // HelloWorld
@@ -14,9 +14,7 @@ export default {
   data: () => ({
     //
   })
-}
+};
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

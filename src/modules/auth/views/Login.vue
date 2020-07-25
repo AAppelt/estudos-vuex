@@ -1,6 +1,4 @@
 <template>
-  <v-row>
-      <h1>Login</h1>
       <v-container
         class="fill-height"
         fluid
@@ -20,7 +18,7 @@
                 dark
                 flat
               >
-                <v-toolbar-title>Login form</v-toolbar-title>
+                <v-toolbar-title>Login</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
@@ -44,6 +42,7 @@
                     name="login"
                     prepend-icon="mdi-account"
                     type="text"
+                    v-model="form.email"
                   ></v-text-field>
 
                   <v-text-field
@@ -52,22 +51,53 @@
                     name="password"
                     prepend-icon="mdi-lock"
                     type="password"
+                    v-model="form.senha"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary">Login</v-btn>
+                <v-btn color="primary" @click="submit()">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
       </v-container>
-  </v-row>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+  // name: 'login',
+  data: () => ({
+    form: {
+      email: '',
+      senha: ''
+    }
+
+  }),
+  // created () {
+  //   // executa a action passando as informacoes -  o commit executa a mutation - a mutation altera o state
+  //   this.ActionSetUser({ name: 'fulano', email: 'fulano@email.com' })
+  // },
+  methods: {
+    ...mapActions('auth', ['ActionDoLogin']),
+    async submit () {
+      try {
+        // chama a action passando os dados do form
+        await this.ActionDoLogin(this.form)
+        this.$router.push({ name: 'home' })
+      } catch (error) {
+        console.log(error)
+        alert(error.data ? error.data.message : 'NAO FOI POSSIVEL FAZER LOGIN')
+      }
+      console.log(this.form)
+    }
+  },
+  props: {
+    source: String
+  }
 
 }
 </script>
