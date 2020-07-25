@@ -7,4 +7,4 @@ const http = Vue.http
 
 http.options.root = 'http://localhost:5000'
 
-export {http}
+export { http }
